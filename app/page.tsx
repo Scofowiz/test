@@ -20,30 +20,19 @@ export interface ChatSettings {
   apiKey: string;
 }
 
-const GROQ_MODELS = [
-  // Production Models
-  { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant', contextWindow: 131072, speed: '560 T/S' },
-  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', contextWindow: 131072, speed: '280 T/S' },
-  { id: 'meta-llama/llama-guard-4-12b', name: 'Llama Guard 4 12B', contextWindow: 131072, speed: '1200 T/S' },
-  { id: 'openai/gpt-oss-120b', name: 'GPT OSS 120B', contextWindow: 131072, speed: '500 T/S' },
-  { id: 'openai/gpt-oss-20b', name: 'GPT OSS 20B', contextWindow: 131072, speed: '1000 T/S' },
-  { id: 'whisper-large-v3', name: 'Whisper Large V3 (Audio)', contextWindow: 0, speed: 'Audio' },
-  { id: 'whisper-large-v3-turbo', name: 'Whisper Large V3 Turbo (Audio)', contextWindow: 0, speed: 'Audio' },
+export interface GroqModel {
+  id: string;
+  name: string;
+  contextWindow: number;
+  active?: boolean;
+  created?: number;
+  ownedBy?: string;
+}
 
-  // Production Systems
-  { id: 'groq/compound', name: 'Groq Compound System', contextWindow: 131072, speed: '450 T/S' },
-  { id: 'groq/compound-mini', name: 'Groq Compound Mini', contextWindow: 131072, speed: '450 T/S' },
-
-  // Preview Models
-  { id: 'meta-llama/llama-4-maverick-17b-128e-instruct', name: 'Llama 4 Maverick 17B (Preview)', contextWindow: 131072, speed: '600 T/S' },
-  { id: 'meta-llama/llama-4-scout-17b-16e-instruct', name: 'Llama 4 Scout 17B (Preview)', contextWindow: 131072, speed: '750 T/S' },
-  { id: 'meta-llama/llama-prompt-guard-2-22m', name: 'Prompt Guard 2 22M (Preview)', contextWindow: 512, speed: 'Guard' },
-  { id: 'meta-llama/llama-prompt-guard-2-86m', name: 'Prompt Guard 2 86M (Preview)', contextWindow: 512, speed: 'Guard' },
-  { id: 'moonshotai/kimi-k2-instruct-0905', name: 'Kimi K2 (Preview)', contextWindow: 262144, speed: '200 T/S' },
-  { id: 'openai/gpt-oss-safeguard-20b', name: 'Safety GPT OSS 20B (Preview)', contextWindow: 131072, speed: '1000 T/S' },
-  { id: 'playai-tts', name: 'PlayAI TTS (Preview)', contextWindow: 8192, speed: 'TTS' },
-  { id: 'playai-tts-arabic', name: 'PlayAI TTS Arabic (Preview)', contextWindow: 8192, speed: 'TTS' },
-  { id: 'qwen/qwen3-32b', name: 'Qwen 3 32B (Preview)', contextWindow: 131072, speed: '400 T/S' },
+// Fallback models in case API fetch fails
+const FALLBACK_MODELS: GroqModel[] = [
+  { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant', contextWindow: 131072 },
+  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', contextWindow: 131072 },
 ];
 
 export default function Home() {
@@ -51,6 +40,8 @@ export default function Home() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [models, setModels] = useState<GroqModel[]>(FALLBACK_MODELS);
+  const [loadingModels, setLoadingModels] = useState(false);
   const [settings, setSettings] = useState<ChatSettings>({
     model: 'llama-3.3-70b-versatile',
     temperature: 0.7,
@@ -66,9 +57,47 @@ export default function Home() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const fetchModels = async () => {
+    setLoadingModels(true);
+    try {
+      const apiKey = settings.apiKey || undefined;
+      const url = apiKey
+        ? `/api/models?apiKey=${encodeURIComponent(apiKey)}`
+        : '/api/models';
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch models');
+      }
+
+      const data = await response.json();
+      if (data.models && data.models.length > 0) {
+        setModels(data.models);
+      }
+    } catch (error) {
+      console.error('Error fetching models:', error);
+      // Keep using fallback models
+    } finally {
+      setLoadingModels(false);
+    }
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Fetch models on mount
+  useEffect(() => {
+    fetchModels();
+  }, []);
+
+  // Refetch models when API key changes
+  useEffect(() => {
+    if (settings.apiKey) {
+      fetchModels();
+    }
+  }, [settings.apiKey]);
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -130,9 +159,11 @@ export default function Home() {
       <SettingsPanel
         settings={settings}
         setSettings={setSettings}
-        models={GROQ_MODELS}
+        models={models}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
+        loadingModels={loadingModels}
+        onRefreshModels={fetchModels}
       />
 
       {/* Main Chat Area */}
@@ -150,7 +181,7 @@ export default function Home() {
               Groq Chat
             </h1>
             <span className="text-sm text-neutral-500 dark:text-neutral-400 hidden sm:inline">
-              {GROQ_MODELS.find((m) => m.id === settings.model)?.name}
+              {models.find((m) => m.id === settings.model)?.name || settings.model}
             </span>
           </div>
           <button

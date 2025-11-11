@@ -1,14 +1,16 @@
 'use client';
 
-import { Settings, X, Key } from 'lucide-react';
-import { ChatSettings } from '../page';
+import { Settings, X, Key, RefreshCw } from 'lucide-react';
+import { ChatSettings, GroqModel } from '../page';
 
 interface SettingsPanelProps {
   settings: ChatSettings;
   setSettings: (settings: ChatSettings) => void;
-  models: Array<{ id: string; name: string; contextWindow: number }>;
+  models: GroqModel[];
   showSettings: boolean;
   setShowSettings: (show: boolean) => void;
+  loadingModels: boolean;
+  onRefreshModels: () => void;
 }
 
 export default function SettingsPanel({
@@ -17,6 +19,8 @@ export default function SettingsPanel({
   models,
   showSettings,
   setShowSettings,
+  loadingModels,
+  onRefreshModels,
 }: SettingsPanelProps) {
   const updateSetting = <K extends keyof ChatSettings>(
     key: K,
@@ -84,20 +88,34 @@ export default function SettingsPanel({
 
             {/* Model Selection */}
             <div>
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2 block">
-                Model
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                  Model ({models.length} available)
+                </label>
+                <button
+                  onClick={onRefreshModels}
+                  disabled={loadingModels}
+                  className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded transition-colors disabled:opacity-50"
+                  title="Refresh model list"
+                >
+                  <RefreshCw className={`w-4 h-4 text-neutral-600 dark:text-neutral-400 ${loadingModels ? 'animate-spin' : ''}`} />
+                </button>
+              </div>
               <select
                 value={settings.model}
                 onChange={(e) => updateSetting('model', e.target.value)}
                 className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                disabled={loadingModels}
               >
                 {models.map((model) => (
                   <option key={model.id} value={model.id}>
-                    {model.name} ({model.contextWindow.toLocaleString()} tokens)
+                    {model.name} {model.contextWindow > 0 ? `(${model.contextWindow.toLocaleString()} tokens)` : ''}
                   </option>
                 ))}
               </select>
+              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                Models loaded from Groq API
+              </p>
             </div>
 
             {/* Temperature */}

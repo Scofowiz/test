@@ -4,7 +4,8 @@ A modern, clean chat interface powered by Groq's AI models. Built with Next.js 1
 
 ## Features
 
-- 🤖 **18 Groq Models**: All available Groq models including Llama 4, GPT OSS, Qwen, Whisper, and Compound systems
+- 🤖 **Dynamic Model Loading**: Automatically fetches the latest models from Groq's API
+- 🔄 **Always Up-to-Date**: Refresh button to get the newest models as they're released
 - 🎨 **Clean Design**: Neutral color scheme with subtle red accents
 - ⚙️ **Full Control**: Adjust temperature, top_p, top_k, and max tokens
 - 🧠 **Reasoning Mode**: Toggle reasoning capabilities for supported models
@@ -55,31 +56,20 @@ npm run dev
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Available Models (18 Total)
+## Available Models
 
-### Production Models (7)
-- **Llama 3.1 8B Instant** - 131K context, 560 tokens/sec
-- **Llama 3.3 70B Versatile** - 131K context, 280 tokens/sec
-- **Llama Guard 4 12B** - 131K context, 1200 tokens/sec (Content moderation)
-- **GPT OSS 120B** - 131K context, 500 tokens/sec
-- **GPT OSS 20B** - 131K context, 1000 tokens/sec
-- **Whisper Large V3** - Audio transcription
-- **Whisper Large V3 Turbo** - Fast audio transcription
+The application **dynamically fetches** all available models from Groq's API, ensuring you always have access to the latest models. The model list automatically updates when:
+- You first open the application
+- You enter or change your API key
+- You click the refresh button in settings
 
-### Production Systems (2)
-- **Groq Compound System** - 131K context, 450 tokens/sec (Agentic system with real-time web search)
-- **Groq Compound Mini** - 131K context, 450 tokens/sec (Agentic system)
+This means you'll always have access to:
+- Production models (Llama 3.1, 3.3, GPT OSS, Whisper, etc.)
+- Agentic systems (Groq Compound)
+- Preview models (Llama 4, Kimi K2, Qwen 3, etc.)
+- Any new models Groq releases
 
-### Preview Models (9)
-- **Llama 4 Maverick 17B** - 131K context, 600 tokens/sec
-- **Llama 4 Scout 17B** - 131K context, 750 tokens/sec
-- **Prompt Guard 2 22M** - 512 tokens (Prompt injection detection)
-- **Prompt Guard 2 86M** - 512 tokens (Prompt injection detection)
-- **Kimi K2** - 262K context, 200 tokens/sec (Largest context window!)
-- **Safety GPT OSS 20B** - 131K context, 1000 tokens/sec
-- **PlayAI TTS** - 8K context (Text-to-speech)
-- **PlayAI TTS Arabic** - 8K context (Arabic text-to-speech)
-- **Qwen 3 32B** - 131K context, 400 tokens/sec
+See the [official Groq documentation](https://console.groq.com/docs/models) for the complete, up-to-date model list with specifications.
 
 ## Configuration
 
