@@ -21,14 +21,45 @@ export interface ChatSettings {
 }
 
 const GROQ_MODELS = [
-  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B', contextWindow: 128000 },
-  { id: 'llama-3.1-70b-versatile', name: 'Llama 3.1 70B', contextWindow: 128000 },
+  // Llama 3.3 Models
+  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', contextWindow: 128000 },
+  { id: 'llama-3.3-70b-specdec', name: 'Llama 3.3 70B Specdec', contextWindow: 8192 },
+
+  // Llama 3.2 Models
+  { id: 'llama-3.2-90b-text-preview', name: 'Llama 3.2 90B Text (Preview)', contextWindow: 8192 },
+  { id: 'llama-3.2-11b-text-preview', name: 'Llama 3.2 11B Text (Preview)', contextWindow: 8192 },
+  { id: 'llama-3.2-3b-preview', name: 'Llama 3.2 3B (Preview)', contextWindow: 8192 },
+  { id: 'llama-3.2-1b-preview', name: 'Llama 3.2 1B (Preview)', contextWindow: 8192 },
+  { id: 'llama-3.2-90b-vision-preview', name: 'Llama 3.2 90B Vision (Preview)', contextWindow: 8192 },
+  { id: 'llama-3.2-11b-vision-preview', name: 'Llama 3.2 11B Vision (Preview)', contextWindow: 8192 },
+
+  // Llama 3.1 Models
+  { id: 'llama-3.1-70b-versatile', name: 'Llama 3.1 70B Versatile', contextWindow: 128000 },
   { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant', contextWindow: 128000 },
+
+  // Llama 3 Models
   { id: 'llama3-70b-8192', name: 'Llama 3 70B', contextWindow: 8192 },
   { id: 'llama3-8b-8192', name: 'Llama 3 8B', contextWindow: 8192 },
+  { id: 'llama3-groq-70b-8192-tool-use-preview', name: 'Llama 3 Groq 70B Tool Use', contextWindow: 8192 },
+  { id: 'llama3-groq-8b-8192-tool-use-preview', name: 'Llama 3 Groq 8B Tool Use', contextWindow: 8192 },
+
+  // DeepSeek Models
+  { id: 'deepseek-r1-distill-llama-70b', name: 'DeepSeek R1 Distill Llama 70B', contextWindow: 8192 },
+
+  // Mixtral Models
   { id: 'mixtral-8x7b-32768', name: 'Mixtral 8x7B', contextWindow: 32768 },
+
+  // Gemma Models
   { id: 'gemma2-9b-it', name: 'Gemma 2 9B', contextWindow: 8192 },
   { id: 'gemma-7b-it', name: 'Gemma 7B', contextWindow: 8192 },
+
+  // Qwen Models
+  { id: 'qwen-2.5-72b-instruct', name: 'Qwen 2.5 72B Instruct', contextWindow: 32768 },
+  { id: 'qwen-2.5-32b-instruct', name: 'Qwen 2.5 32B Instruct', contextWindow: 32768 },
+  { id: 'qwen2-72b-instruct', name: 'Qwen 2 72B Instruct', contextWindow: 32768 },
+
+  // Guard Models
+  { id: 'llama-guard-3-8b', name: 'Llama Guard 3 8B', contextWindow: 8192 },
 ];
 
 export default function Home() {

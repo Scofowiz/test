@@ -53,14 +53,45 @@ npm run dev
 
 ## Available Models
 
+### Llama 3.3 Models
 - **Llama 3.3 70B Versatile** - 128K context window
+- **Llama 3.3 70B Specdec** - 8K context window
+
+### Llama 3.2 Models
+- **Llama 3.2 90B Text** - 8K context window
+- **Llama 3.2 90B Vision** - 8K context window (Image support)
+- **Llama 3.2 11B Text** - 8K context window
+- **Llama 3.2 11B Vision** - 8K context window (Image support)
+- **Llama 3.2 3B** - 8K context window
+- **Llama 3.2 1B** - 8K context window
+
+### Llama 3.1 Models
 - **Llama 3.1 70B Versatile** - 128K context window
 - **Llama 3.1 8B Instant** - 128K context window
+
+### Llama 3 Models
 - **Llama 3 70B** - 8K context window
 - **Llama 3 8B** - 8K context window
+- **Llama 3 Groq 70B Tool Use** - 8K context window (Function calling)
+- **Llama 3 Groq 8B Tool Use** - 8K context window (Function calling)
+
+### DeepSeek Models
+- **DeepSeek R1 Distill Llama 70B** - 8K context window (Reasoning model)
+
+### Mixtral Models
 - **Mixtral 8x7B** - 32K context window
+
+### Gemma Models
 - **Gemma 2 9B** - 8K context window
 - **Gemma 7B** - 8K context window
+
+### Qwen Models
+- **Qwen 2.5 72B Instruct** - 32K context window
+- **Qwen 2.5 32B Instruct** - 32K context window
+- **Qwen 2 72B Instruct** - 32K context window
+
+### Safety Models
+- **Llama Guard 3 8B** - 8K context window (Content moderation)
 
 ## Configuration
 
