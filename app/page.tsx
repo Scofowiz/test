@@ -21,73 +21,29 @@ export interface ChatSettings {
 }
 
 const GROQ_MODELS = [
-  // Llama 4 Models (Preview)
-  { id: 'meta-llama/llama-4-maverick-17b-128e-instruct', name: 'Llama 4 Maverick 17B 128E (Preview)', contextWindow: 131072 },
-  { id: 'meta-llama/llama-4-scout-17b-16e-instruct', name: 'Llama 4 Scout 17B 16E (Preview)', contextWindow: 131072 },
+  // Production Models
+  { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant', contextWindow: 131072, speed: '560 T/S' },
+  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', contextWindow: 131072, speed: '280 T/S' },
+  { id: 'meta-llama/llama-guard-4-12b', name: 'Llama Guard 4 12B', contextWindow: 131072, speed: '1200 T/S' },
+  { id: 'openai/gpt-oss-120b', name: 'GPT OSS 120B', contextWindow: 131072, speed: '500 T/S' },
+  { id: 'openai/gpt-oss-20b', name: 'GPT OSS 20B', contextWindow: 131072, speed: '1000 T/S' },
+  { id: 'whisper-large-v3', name: 'Whisper Large V3 (Audio)', contextWindow: 0, speed: 'Audio' },
+  { id: 'whisper-large-v3-turbo', name: 'Whisper Large V3 Turbo (Audio)', contextWindow: 0, speed: 'Audio' },
 
-  // Llama 3.3 Models
-  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', contextWindow: 131072 },
-  { id: 'llama-3.3-70b-specdec', name: 'Llama 3.3 70B Specdec', contextWindow: 8192 },
+  // Production Systems
+  { id: 'groq/compound', name: 'Groq Compound System', contextWindow: 131072, speed: '450 T/S' },
+  { id: 'groq/compound-mini', name: 'Groq Compound Mini', contextWindow: 131072, speed: '450 T/S' },
 
-  // Llama 3.2 Models
-  { id: 'llama-3.2-90b-text-preview', name: 'Llama 3.2 90B Text (Preview)', contextWindow: 8192 },
-  { id: 'llama-3.2-11b-text-preview', name: 'Llama 3.2 11B Text (Preview)', contextWindow: 8192 },
-  { id: 'llama-3.2-3b-preview', name: 'Llama 3.2 3B (Preview)', contextWindow: 8192 },
-  { id: 'llama-3.2-1b-preview', name: 'Llama 3.2 1B (Preview)', contextWindow: 8192 },
-  { id: 'llama-3.2-90b-vision-preview', name: 'Llama 3.2 90B Vision (Preview)', contextWindow: 8192 },
-  { id: 'llama-3.2-11b-vision-preview', name: 'Llama 3.2 11B Vision (Preview)', contextWindow: 8192 },
-
-  // Llama 3.1 Models
-  { id: 'llama-3.1-70b-versatile', name: 'Llama 3.1 70B Versatile', contextWindow: 131072 },
-  { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant', contextWindow: 131072 },
-
-  // Llama 3 Models
-  { id: 'llama3-70b-8192', name: 'Llama 3 70B', contextWindow: 8192 },
-  { id: 'llama3-8b-8192', name: 'Llama 3 8B', contextWindow: 8192 },
-  { id: 'llama3-groq-70b-8192-tool-use-preview', name: 'Llama 3 Groq 70B Tool Use', contextWindow: 8192 },
-  { id: 'llama3-groq-8b-8192-tool-use-preview', name: 'Llama 3 Groq 8B Tool Use', contextWindow: 8192 },
-
-  // DeepSeek Models
-  { id: 'deepseek-r1-distill-llama-70b', name: 'DeepSeek R1 Distill Llama 70B', contextWindow: 8192 },
-
-  // Mixtral Models
-  { id: 'mixtral-8x7b-32768', name: 'Mixtral 8x7B', contextWindow: 32768 },
-
-  // Gemma Models
-  { id: 'gemma2-9b-it', name: 'Gemma 2 9B', contextWindow: 8192 },
-  { id: 'gemma-7b-it', name: 'Gemma 7B', contextWindow: 8192 },
-
-  // Qwen Models
-  { id: 'qwen/qwen3-32b', name: 'Qwen 3 32B (Preview)', contextWindow: 131072 },
-  { id: 'qwen-2.5-72b-instruct', name: 'Qwen 2.5 72B Instruct', contextWindow: 32768 },
-  { id: 'qwen-2.5-32b-instruct', name: 'Qwen 2.5 32B Instruct', contextWindow: 32768 },
-  { id: 'qwen2-72b-instruct', name: 'Qwen 2 72B Instruct', contextWindow: 32768 },
-
-  // Kimi Models (Preview)
-  { id: 'moonshotai/kimi-k2-instruct-0905', name: 'Kimi K2 0905 (Preview)', contextWindow: 262144 },
-
-  // OpenAI GPT OSS Models
-  { id: 'openai/gpt-oss-120b', name: 'GPT OSS 120B', contextWindow: 131072 },
-  { id: 'openai/gpt-oss-20b', name: 'GPT OSS 20B', contextWindow: 131072 },
-
-  // Groq Compound Systems
-  { id: 'groq/compound', name: 'Groq Compound System', contextWindow: 131072 },
-  { id: 'groq/compound-mini', name: 'Groq Compound Mini', contextWindow: 131072 },
-
-  // Safety & Guard Models
-  { id: 'meta-llama/llama-guard-4-12b', name: 'Llama Guard 4 12B', contextWindow: 131072 },
-  { id: 'llama-guard-3-8b', name: 'Llama Guard 3 8B', contextWindow: 8192 },
-  { id: 'meta-llama/llama-prompt-guard-2-22m', name: 'Prompt Guard 2 22M (Preview)', contextWindow: 512 },
-  { id: 'meta-llama/llama-prompt-guard-2-86m', name: 'Prompt Guard 2 86M (Preview)', contextWindow: 512 },
-  { id: 'openai/gpt-oss-safeguard-20b', name: 'Safety GPT OSS 20B (Preview)', contextWindow: 131072 },
-
-  // Audio Models
-  { id: 'whisper-large-v3', name: 'Whisper Large V3 (Audio)', contextWindow: 8192 },
-  { id: 'whisper-large-v3-turbo', name: 'Whisper Large V3 Turbo (Audio)', contextWindow: 8192 },
-
-  // Text-to-Speech Models (Preview)
-  { id: 'playai-tts', name: 'PlayAI TTS (Preview)', contextWindow: 8192 },
-  { id: 'playai-tts-arabic', name: 'PlayAI TTS Arabic (Preview)', contextWindow: 8192 },
+  // Preview Models
+  { id: 'meta-llama/llama-4-maverick-17b-128e-instruct', name: 'Llama 4 Maverick 17B (Preview)', contextWindow: 131072, speed: '600 T/S' },
+  { id: 'meta-llama/llama-4-scout-17b-16e-instruct', name: 'Llama 4 Scout 17B (Preview)', contextWindow: 131072, speed: '750 T/S' },
+  { id: 'meta-llama/llama-prompt-guard-2-22m', name: 'Prompt Guard 2 22M (Preview)', contextWindow: 512, speed: 'Guard' },
+  { id: 'meta-llama/llama-prompt-guard-2-86m', name: 'Prompt Guard 2 86M (Preview)', contextWindow: 512, speed: 'Guard' },
+  { id: 'moonshotai/kimi-k2-instruct-0905', name: 'Kimi K2 (Preview)', contextWindow: 262144, speed: '200 T/S' },
+  { id: 'openai/gpt-oss-safeguard-20b', name: 'Safety GPT OSS 20B (Preview)', contextWindow: 131072, speed: '1000 T/S' },
+  { id: 'playai-tts', name: 'PlayAI TTS (Preview)', contextWindow: 8192, speed: 'TTS' },
+  { id: 'playai-tts-arabic', name: 'PlayAI TTS Arabic (Preview)', contextWindow: 8192, speed: 'TTS' },
+  { id: 'qwen/qwen3-32b', name: 'Qwen 3 32B (Preview)', contextWindow: 131072, speed: '400 T/S' },
 ];
 
 export default function Home() {
