@@ -21,8 +21,12 @@ export interface ChatSettings {
 }
 
 const GROQ_MODELS = [
+  // Llama 4 Models (Preview)
+  { id: 'meta-llama/llama-4-maverick-17b-128e-instruct', name: 'Llama 4 Maverick 17B 128E (Preview)', contextWindow: 131072 },
+  { id: 'meta-llama/llama-4-scout-17b-16e-instruct', name: 'Llama 4 Scout 17B 16E (Preview)', contextWindow: 131072 },
+
   // Llama 3.3 Models
-  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', contextWindow: 128000 },
+  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', contextWindow: 131072 },
   { id: 'llama-3.3-70b-specdec', name: 'Llama 3.3 70B Specdec', contextWindow: 8192 },
 
   // Llama 3.2 Models
@@ -34,8 +38,8 @@ const GROQ_MODELS = [
   { id: 'llama-3.2-11b-vision-preview', name: 'Llama 3.2 11B Vision (Preview)', contextWindow: 8192 },
 
   // Llama 3.1 Models
-  { id: 'llama-3.1-70b-versatile', name: 'Llama 3.1 70B Versatile', contextWindow: 128000 },
-  { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant', contextWindow: 128000 },
+  { id: 'llama-3.1-70b-versatile', name: 'Llama 3.1 70B Versatile', contextWindow: 131072 },
+  { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant', contextWindow: 131072 },
 
   // Llama 3 Models
   { id: 'llama3-70b-8192', name: 'Llama 3 70B', contextWindow: 8192 },
@@ -54,12 +58,36 @@ const GROQ_MODELS = [
   { id: 'gemma-7b-it', name: 'Gemma 7B', contextWindow: 8192 },
 
   // Qwen Models
+  { id: 'qwen/qwen3-32b', name: 'Qwen 3 32B (Preview)', contextWindow: 131072 },
   { id: 'qwen-2.5-72b-instruct', name: 'Qwen 2.5 72B Instruct', contextWindow: 32768 },
   { id: 'qwen-2.5-32b-instruct', name: 'Qwen 2.5 32B Instruct', contextWindow: 32768 },
   { id: 'qwen2-72b-instruct', name: 'Qwen 2 72B Instruct', contextWindow: 32768 },
 
-  // Guard Models
+  // Kimi Models (Preview)
+  { id: 'moonshotai/kimi-k2-instruct-0905', name: 'Kimi K2 0905 (Preview)', contextWindow: 262144 },
+
+  // OpenAI GPT OSS Models
+  { id: 'openai/gpt-oss-120b', name: 'GPT OSS 120B', contextWindow: 131072 },
+  { id: 'openai/gpt-oss-20b', name: 'GPT OSS 20B', contextWindow: 131072 },
+
+  // Groq Compound Systems
+  { id: 'groq/compound', name: 'Groq Compound System', contextWindow: 131072 },
+  { id: 'groq/compound-mini', name: 'Groq Compound Mini', contextWindow: 131072 },
+
+  // Safety & Guard Models
+  { id: 'meta-llama/llama-guard-4-12b', name: 'Llama Guard 4 12B', contextWindow: 131072 },
   { id: 'llama-guard-3-8b', name: 'Llama Guard 3 8B', contextWindow: 8192 },
+  { id: 'meta-llama/llama-prompt-guard-2-22m', name: 'Prompt Guard 2 22M (Preview)', contextWindow: 512 },
+  { id: 'meta-llama/llama-prompt-guard-2-86m', name: 'Prompt Guard 2 86M (Preview)', contextWindow: 512 },
+  { id: 'openai/gpt-oss-safeguard-20b', name: 'Safety GPT OSS 20B (Preview)', contextWindow: 131072 },
+
+  // Audio Models
+  { id: 'whisper-large-v3', name: 'Whisper Large V3 (Audio)', contextWindow: 8192 },
+  { id: 'whisper-large-v3-turbo', name: 'Whisper Large V3 Turbo (Audio)', contextWindow: 8192 },
+
+  // Text-to-Speech Models (Preview)
+  { id: 'playai-tts', name: 'PlayAI TTS (Preview)', contextWindow: 8192 },
+  { id: 'playai-tts-arabic', name: 'PlayAI TTS Arabic (Preview)', contextWindow: 8192 },
 ];
 
 export default function Home() {
